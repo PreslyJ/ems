@@ -211,7 +211,7 @@ $config['directory_trigger']    = 'd';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -534,8 +534,8 @@ $config['ignore_access'] = array('login','dashboard');
 | e.g. array('product_code','This is the product name');
 */
 
-$config['system_prods']['EEMS'] = array('EEMS','Enhanced Event Management System');
-
+$config['system_prods']['EEMS'] = array('EEMS','Envision Event Management System');
+#$config[‘index_page’] = ‘’;
 /*
 |--------------------------------------------------------------------------
 | Autoload Custom Controllers

@@ -28,7 +28,8 @@ class Event_type extends CI_Controller
 
 	function event_type_lookup_view()
 	{
-		$this->load->view('config/event_type_lookup_view');
+		//$data = $this->event_type_model->fetch_predata(); //fetching initial data from model
+		$this->load->view('config/Event_type_lookup_view');	
 	}
 
 	function fetch_event_types()

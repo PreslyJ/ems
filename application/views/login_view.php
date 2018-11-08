@@ -40,7 +40,7 @@
     <div class="middle-box text-center loginscreen animated fadeInDown">        
         <div class="m-t-xxl">
             <div>
-                <img class="img-responsive" src="assets/img/eems.png">
+                <img class="img-responsive" src="<?php echo base_url() ?>/assets/img/eems.png">
             </div>
             <br><h3 class="panel-title text-center text-primary"><strong>Please Sign In</strong></h3>
             <?php echo form_open('login/submit_login','role="form" id = "login_form" name = "login_form"'); ?>
@@ -61,7 +61,7 @@
                     <button class="btn btn-lg btn-primary btn-block" type = "submit" id = "login_btn">Login</button>
                 </fieldset>
             <?php echo form_close(); ?>
-                <br><p class="text-center"> <small>Solutions by Final Project &copy; <?php echo date('Y'); ?></small> </p>
+                <br><p class="text-center"> <small>Solutions by Presly Jayasinghe &copy; <?php echo date('Y'); ?></small> </p>
         </div>        
     </div>
 

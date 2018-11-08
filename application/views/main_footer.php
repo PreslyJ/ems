@@ -2,7 +2,7 @@
     <!-- /#wrapper -->
     <div class="footer">
         <div>
-            <small class = "footer-text"><strong>EEMS - Enhanced Event Management System | Final Project &copy; <?php echo date('Y'); ?></strong></small>
+            <small class = "footer-text"><strong>Envision Event Management System &copy; <?php echo date('Y'); ?></strong></small>
         </div>
     </div>
     <!-- End of Footer -->
