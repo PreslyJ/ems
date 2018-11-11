@@ -372,4 +372,9 @@ function onChange(el)
         el.fireEvent('onchange');
     }
 }
+
+//  function nicval(val){
+//     return /[0-9]{9}[x|X|v|V]$/g.test($('#someConfirmPassword').val());
+//  }
+
 </script>

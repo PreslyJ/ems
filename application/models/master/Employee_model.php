@@ -2,7 +2,7 @@
 
 class Employee_model extends CI_Model
 {
-	function employee_model()
+	function __construct()
 	{
 		parent:: __Construct();
 	}

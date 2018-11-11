@@ -11,8 +11,8 @@ class LogViewerController extends CI_Controller
         $data['log'] = '';
 
          // Current Filename;
-        $file = FCPATH . 'application/logs/' . 'log-'.date('Y-m-d').'.php';
-
+    //    $file = FCPATH . 'application/logs/' . 'log-'.date('Y-m-d').'.php';
+         $file = '/var/www/html/' . 'log-'.date('Y-m-d').'.php';    
         if (file_exists($file)) {
             $size = filesize($file);
 

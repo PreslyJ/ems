@@ -311,7 +311,7 @@ class Checklist_model extends CI_Model
 				$checklist_data[$i]['ACL_Incharge']       = $entry['emp_id'];
 				$checklist_data[$i]['ACL_Status']         = $entry['status'];
 				$checklist_data[$i]['ACL_Deadline']       = $entry['deadline']; 
-				$checklist_data[$i]['ACL_Completed_on']   = ($entry['status'] == 1 ? date('Y-m-d H:i:s') : '');
+				$checklist_data[$i]['ACL_Completed_on']   = ($entry['status'] == 1 ? date('Y-m-d H:i:s') : NULL);
 				$checklist_data[$i]['ACL_User']           = $this->session->userdata('username'); 
 				$checklist_data[$i]['ACL_Timestamp']      = date('Y-m-d H:i:s');  
 

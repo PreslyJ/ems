@@ -2,7 +2,7 @@
 
 class Customer_model extends CI_Model
 {
-	function customer_model()
+	function __construct()
 	{
 		parent:: __Construct();
 

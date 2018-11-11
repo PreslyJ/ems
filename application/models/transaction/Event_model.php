@@ -243,7 +243,7 @@ class Event_model extends CI_Model
 			$data['ENT_VEN_ID']         = $_POST['ven_select'];
 			$data['ENT_HALL_ID']        = $_POST['hall_select'];
 			$data['ENT_Initial_budget'] = $_POST['evt_budget_input'];
-			$data['ENT_Budget']         = $_POST['act_budget_input'];
+			$data['ENT_Budget']         = ($_POST['act_budget_input'] == NULL ? 0 : $_POST['act_budget_input']) ;
 			$data['ENT_Total_charge']   = $_POST['total_fee_input'];
 			$data['ENT_Requirement']    = $_POST['cus_req_input'];
 			$data['ENT_Remarks']        = $_POST['ent_remarks_input'];
@@ -297,7 +297,7 @@ class Event_model extends CI_Model
 				$data['ENT_VEN_ID']          = $_POST['ven_select'];
 				$data['ENT_HALL_ID']         = $_POST['hall_select'];
 				$data['ENT_Initial_budget']  = $_POST['evt_budget_input'];
-				$data['ENT_Budget']          = $_POST['act_budget_input'];
+				$data['ENT_Budget']          = ($_POST['act_budget_input'] == NULL ? 0 : $_POST['act_budget_input']) ;
 				$data['ENT_Total_charge']    = $_POST['total_fee_input'];
 				$data['ENT_Requirement']     = $_POST['cus_req_input'];
 				$data['ENT_Remarks']         = $_POST['ent_remarks_input'];
