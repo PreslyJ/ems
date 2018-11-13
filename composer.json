@@ -1,5 +1,14 @@
 {
     "require": {
-        "seunmatt/codeigniter-log-viewer": "^1.1"
+        "seunmatt/codeigniter-log-viewer": "^1.1",
+        "mpdf/mpdf": "^7.1",
+        "tecnickcom/tcpdf": "^6.2.13"
     }
+,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:tecnickcom/tc-lib-pdf.git"
+        }
+    ]
 }

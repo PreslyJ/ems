@@ -156,6 +156,8 @@ class Checklist_model extends CI_Model
 		$r    = array();
 		$data = array();
 
+
+
 		if($_POST['id'] != "")
 		{
 			$this->db->select('ACL_ID as "id", ACL_EAY_ID as "act_id", EAY_Activity as "activity", DATE(EAY_Deadline) as "deadline", ACL_Checklist_item as "item", ACL_Incharge as "incharge", EMP_Fullname as "assigned_name", ACL_Status as "status", DATE(ACL_Deadline) as "ckl_deadline", ACL_Completed_on as "completed"');
@@ -311,7 +313,7 @@ class Checklist_model extends CI_Model
 				$checklist_data[$i]['ACL_Incharge']       = $entry['emp_id'];
 				$checklist_data[$i]['ACL_Status']         = $entry['status'];
 				$checklist_data[$i]['ACL_Deadline']       = $entry['deadline']; 
-				$checklist_data[$i]['ACL_Completed_on']   = ($entry['status'] == 1 ? date('Y-m-d H:i:s') : '');
+				$checklist_data[$i]['ACL_Completed_on']   = ($entry['status'] == 1 ? date('Y-m-d H:i:s') : NULL);
 				$checklist_data[$i]['ACL_User']           = $this->session->userdata('username'); 
 				$checklist_data[$i]['ACL_Timestamp']      = date('Y-m-d H:i:s');  
 

@@ -339,7 +339,7 @@ function preProcessSave()
 
 $('#customer_modal').on('hidden.bs.modal', function() 
 {
-    $(this).removeData('bs.modal');
+    $(this).removeData('bs.modal'); 
     reloadCustomers();
 });
 

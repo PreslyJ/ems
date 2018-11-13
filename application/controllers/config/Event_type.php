@@ -13,7 +13,7 @@ class Event_type extends CI_Controller
 	function event_type_view()
 	{
 		$data = $this->event_type_model->fetch_predata();
-		$this->load->view('config/event_type_view', $data);
+		$this->load->view('config/Event_type_view', $data);
 	}
 
 	function save_event_type()

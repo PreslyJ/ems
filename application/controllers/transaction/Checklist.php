@@ -55,6 +55,7 @@ class Checklist extends CI_Controller
 
 	function fetch_lp_checklists()
 	{
+
 		echo json_encode($this->checklist_model->fetch_lp_checklists());
 	}
 }

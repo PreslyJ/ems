@@ -174,6 +174,9 @@
                                 <li>
                                     <a onclick = "loadModule('reports/event_rate_report/event_rate_report_view');"><i class="fa fa-bar-chart fa-fw"></i> Event Rate Report</a>
                                 </li>
+                                <li>
+                                    <a onclick = "loadModule('reports/Reports/reports_view');"><i class="fa fa-bar-chart fa-fw"></i> Reports</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

@@ -17,7 +17,7 @@ class Event_summary_report_model extends CI_Model
 		$data['ent_select'] = '<option value = "">Select Event</option>';
 
 		foreach($event as $row)
-		{
+		{ 
 			$data['ent_select'] .= '<option data-status = "'.$row['status'].'" value = "'.$row['id'].'">' . $row['code'] . '</option>';
 		}
 

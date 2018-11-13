@@ -8,7 +8,7 @@
                         <i class="fa fa-cog pull-right" data-toggle="modal" data-target="#report_config_modal"></i>
                     </a>
                 </h4>
-            </div>
+            </div> 
             
             <div class="panel-body">
                 <div class = "row"> <!-- Report header -->
