@@ -44,13 +44,13 @@
                                 <tbody>
                                     <tr>
                                         <td class = "text-center">1</td>
-                                        <td class = "text-center">Event Checklist</td>
+                                        <td class = "text-left">Event Checklist</td>
                                         <td class = "text-center"><button class="btn" onclick="genEventCheckList()"><i class="fa fa-download"></i> Download pdf</button></td>
                                     </tr>                                
                                     <tr>
                                         <td class = "text-center">2</td>
-                                        <td class = "text-center">Event Agenda</td>
-                                        <td class = "text-center"><button class="btn"><i class="fa fa-download"></i> Download pdf</button></td>
+                                        <td class = "text-left">Event Agenda</td>
+                                        <td class = "text-center"><button class="btn" onclick="genEventAgenda()"><i class="fa fa-download"></i> Download pdf</button></td>
                                     </tr>                                
                                 </tbody>
                             </table>
@@ -106,7 +106,23 @@
 
 <script type="text/javascript">
 
-var variance_table = null;
+function genEventCheckList(){
+    if($('#ent_select').selectpicker('val')){
+        var link=document.createElement('a');
+        link.href='http://localhost/ems/reports/Reports/checklist/'+$('#ent_select').selectpicker('val');
+        link.download="checklist_" + new Date() + ".pdf";
+        link.click();
+    }
+}
+
+function genEventAgenda(){
+    if($('#ent_select').selectpicker('val')){
+        var link=document.createElement('a');
+        link.href='http://localhost/ems/reports/Reports/eventAgenda/'+$('#ent_select').selectpicker('val');
+        link.download="agenda.pdf";
+        link.click();
+    }
+}
 
 $(document).ready(function()
 {
@@ -115,37 +131,10 @@ $(document).ready(function()
     if($('#ent_select').selectpicker('val') == "")
     {
         $('#info_holder').show();
-        $('#info_holder').html("<p class = 'text-center text-danger'>Please Select An Event By Clicking the Configuration Icon Above to Generate Report.</p>");
+        $('#info_holder').html("<p class = 'text-center text-danger'>Please Select An Event By Clicking the Configuration Icon Above to Generate a Report.</p>");
     }
 
-    variance_table = $('#variance_table').dataTable(
-    {
-        'dom': '<"top">rt<"bottom"><"clear">',
-        'bSort': false,
-        'iDisplayLength' : -1,
-        'responsive' : false,
-        'autoWidth' : false,
-        'sAjaxSource' : '<?php echo site_url("reports/event_summary_report/fetch_buget_info") ?>',
-        'fnServerData' : function(sSource, aoData, fnCallback, oSettigns){
-        $.ajax({
-            "dataType" : 'json',
-            "type" : 'POST',
-            "url" : sSource,
-            "data" : aoData,
-            "success" : fnCallback
-        })},
-        'fnServerParams' : function(aoData)
-        {
-            aoData.push({'name' : 'ent_id', 'value' : $('#ent_select').selectpicker('val')});
-        },
-        'aoColumns' : [
-            { 'mData' : 'ent_code'},
-            { 'mData' : 'ini_budget', 'sClass' : 'text-right'},
-            { 'mData' : 'act_budget', 'sClass' : 'text-right'},
-            { 'mData' : 'var_plus', 'sClass' : 'text-right'},
-            { 'mData' : 'var_minus', 'sClass' : 'text-right'}
-        ]
-    });
+ 
 });
 
 function fetchData()
@@ -155,24 +144,12 @@ function fetchData()
         $('#info_holder').hide();
         $('#info_holder').html("");
 
-        fetchBasicInfo();
-        fetchEventProgress();
-        variance_table.api().ajax.reload();
-        loadProgressRate();
-        loadActivityBudget();
     }
     else
     {
         $('#info_holder').show();
         $('#info_holder').html("<p class = 'text-center text-danger'>Please Select An Event By Clicking the Configuration Icon Above to Generate Report.</p>");
         $('.holders').html("....");
-        $('#event_progress_holder').find('div[data-cap="20"]').attr('style','width:0%; min-width:2em');
-        $('#event_progress_holder').find('div[data-cap="40"]').attr('style','width: 0%');
-        $('#event_progress_holder').find('div[data-cap="60"]').attr('style','width: 0%');
-        $('#event_progress_holder').find('div[data-cap="80"]').attr('style','width: 0%');
-        $('#event_progress_holder').find('div[data-cap="100"]').attr('style','width: 0%');
-        $('#event_progress_holder').find('div[data-cap="20"]').find('span').html('0%');
-        $('#variance_table_body').empty();
         d3.selectAll("svg > *").remove();
     }
 

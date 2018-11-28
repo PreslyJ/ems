@@ -57,7 +57,7 @@
                                             </div>
 
                                         </div>
-                                        <div class = "col-md-12">
+                                        <!-- <div class = "col-md-12">
 
                                             <div class = "col-md-6">
 
@@ -113,33 +113,9 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <div class = "col-md-12">
-                                            <div class = "col-md-6">
-
-                                                <div class="form-group"> 
-                                                    <label class="col-md-4 control-label" for  = "emp_email_input">Email</label>                                      
-                                                    <div class="col-md-8">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                                            <input type = "email" placeholder = "Email Address" class = "form-control" id = "emp_email_input" name = "emp_email_input" data-validation="email" data-validation-optional="true">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class = "col-md-6">
-
-                                                 <div class = "form-group">
-                                                    <label class = "control-label col-md-4" for  = "status_switch">Status</label>
-                                                    <div class = "col-md-2">
-                                                        <input id = "status_switch" name = "status_switch" type = "checkbox" class="js-switch" checked/>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </form>
                             </div>
@@ -199,6 +175,34 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        <div class = "col-md-12">
+                                            <!-- <div class = "col-md-6">
+
+                                                <div class="form-group"> 
+                                                    <label class="col-md-4 control-label" for  = "emp_email_input">Email</label>                                      
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            <input type = "email" placeholder = "Email Address" class = "form-control" id = "emp_email_input" name = "emp_email_input" data-validation="email" data-validation-optional="true">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div> -->
+                                            <div class = "col-md-6">
+
+                                                 <div class = "form-group">
+                                                    <label class = "control-label col-md-4" for  = "status_switch">Status</label>
+                                                    <div class = "col-md-2">
+                                                        <input id = "status_switch" name = "status_switch" type = "checkbox" class="js-switch" checked/>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </form>
                             </div>
@@ -276,12 +280,12 @@ function fetchUser(user_id)
             $('#emp_select').prop('disabled', true);
             $('#emp_select').selectpicker('refresh');
             
-            $('#user_nic_input').val(data['nic']);
-            $('#user_fname_input').val(data['full_name']);
-            $('#user_home_input').val(data['home']);
-            $('#user_mobile_input').val(data['mobile']);
-            $('#user_add_input').val(data['address']);
-            $('#emp_email_input').val(data['email']);
+            // $('#user_nic_input').val(data['nic']);
+            // $('#user_fname_input').val(data['full_name']);
+            // $('#user_home_input').val(data['home']);
+            // $('#user_mobile_input').val(data['mobile']);
+            // $('#user_add_input').val(data['address']);
+            // $('#emp_email_input').val(data['email']);
             $('#username_input').val(data['username']);
             $('#u_group_select').selectpicker('val', data['group']);
             $('#pass_confirmation').val(data['pwd']);

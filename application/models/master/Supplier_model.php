@@ -2,7 +2,7 @@
 
 class Supplier_model extends CI_Model
 {
-	function supplier_model()
+	function __Construct()
 	{
 		parent:: __Construct();
 

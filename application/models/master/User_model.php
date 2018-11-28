@@ -30,10 +30,10 @@ class User_model extends CI_Model
 	function save_user()
 	{
 		$this->form_validation->set_rules('emp_select', 'Employee', 'trim|required');
-		$this->form_validation->set_rules('user_nic_input', 'NIC', 'trim|required');
-		$this->form_validation->set_rules('user_fname_input', 'Full Name', 'trim|required');
-		$this->form_validation->set_rules('user_mobile_input', 'Mobile Number', 'trim|required');
-		$this->form_validation->set_rules('user_add_input', 'Address', 'trim|required');
+		// $this->form_validation->set_rules('user_nic_input', 'NIC', 'trim|required');
+		// $this->form_validation->set_rules('user_fname_input', 'Full Name', 'trim|required');
+		// $this->form_validation->set_rules('user_mobile_input', 'Mobile Number', 'trim|required');
+		// $this->form_validation->set_rules('user_add_input', 'Address', 'trim|required');
 		$this->form_validation->set_rules('username_input', 'Username', 'trim|required');
 		$this->form_validation->set_rules('u_group_select', 'User Group', 'trim|required');
 		$this->form_validation->set_rules('pass_confirmation', 'Password', 'trim|required');
@@ -56,17 +56,18 @@ class User_model extends CI_Model
 			$data = array();
 
 			$data['USR_EMP_ID']     = $_POST['emp_select'];
-			$data['USR_NIC']        = $_POST['user_nic_input'];
-			$data['USR_Fullname']   = $_POST['user_fname_input'];
-			$data['USR_Address']    = $_POST['user_add_input'];
-			$data['USR_Mobile_no']  = $_POST['user_mobile_input'];
-			$data['USR_Contact_no'] = $_POST['user_home_input'];
-			$data['USR_Email']      = $_POST['emp_email_input'];
+			// $data['USR_NIC']        = $_POST['user_nic_input'];
+			// $data['USR_Fullname']   = $_POST['user_fname_input'];
+			// $data['USR_Address']    = $_POST['user_add_input'];
+			// $data['USR_Mobile_no']  = $_POST['user_mobile_input'];
+			// $data['USR_Contact_no'] = $_POST['user_home_input'];
+			// $data['USR_Email']      = $_POST['emp_email_input'];
 			$data['USR_User_group'] = $_POST['u_group_select'];
 			$data['USR_Username']   = $_POST['username_input'];
 			$data['USR_Password']   = $_POST['pass_confirmation'];
 			$data['USR_Status']     = (isset($_POST['status_switch']) ? 1 : 0);
 			$data['USR_User']       = $this->session->userdata('username');
+			$data['USR_UserId']       = $this->session->userdata('user_id');
 			$data['USR_Timestamp']  = date('Y-m-d H:i:s');
 
 			$this->db->insert('USER', $data);
@@ -78,17 +79,18 @@ class User_model extends CI_Model
 		{
 			if($_POST['update_id'] != null)
 			{
-				$data['USR_NIC']             = $_POST['user_nic_input'];
-				$data['USR_Fullname']        = $_POST['user_fname_input'];
-				$data['USR_Address']         = $_POST['user_add_input'];
-				$data['USR_Mobile_no']       = $_POST['user_mobile_input'];
-				$data['USR_Contact_no']      = $_POST['user_home_input'];
-				$data['USR_Email']           = $_POST['emp_email_input'];
+				// $data['USR_NIC']             = $_POST['user_nic_input'];
+				// $data['USR_Fullname']        = $_POST['user_fname_input'];
+				// $data['USR_Address']         = $_POST['user_add_input'];
+				// $data['USR_Mobile_no']       = $_POST['user_mobile_input'];
+				// $data['USR_Contact_no']      = $_POST['user_home_input'];
+				// $data['USR_Email']           = $_POST['emp_email_input'];
 				$data['USR_User_group']      = $_POST['u_group_select'];
 				$data['USR_Username']        = $_POST['username_input'];
 				$data['USR_Password']        = $_POST['pass_confirmation'];
 				$data['USR_Status']          = (isset($_POST['status_switch']) ? 1 : 0);
 				$data['USR_UpdateUser']      = $this->session->userdata('username');
+				$data['USR_UpdateUserId']    = $this->session->userdata('user_id');
 				$data['USR_UpdateTimestamp'] = date('Y-m-d H:i:s');
 
 				$this->db->where('USR_ID', $_POST['update_id']);
@@ -100,12 +102,12 @@ class User_model extends CI_Model
 
 		if($this->db->affected_rows() > 0)
 		{
-			$this->session->set_flashdata('s', 'User - ' . $_POST['user_fname_input'] . ' '. $event . ' successful.');
+			$this->session->set_flashdata('s', 'User - ' . $_POST['username_input'] . ' '. $event . ' successful.');
 			return true;
 		}
 		else
 		{
-			$this->session->set_flashdata('e', 'User - ' . $_POST['user_fname_input'] . ' '. $event . ' failed.');
+			$this->session->set_flashdata('e', 'User - ' . $_POST['username_input'] . ' '. $event . ' failed.');
 			return false;
 		}
 	}
@@ -115,13 +117,16 @@ class User_model extends CI_Model
 		$data = array();
 		$r    = array();
 
-		$this->db->select('USR_ID as "id", USR_NIC as "nic", USR_Fullname as "full_name", USR_User_group as "group", USR_User as "user", USR_Status as "status"');
+		$this->db->select('USR_ID as "id", EMP_NIC as "nic", EMP_Fullname as "full_name", USR_User_group as "group", USR_User as "user", USR_Status as "status"');
+
+		$this->db->join('EMPLOYEE','USER.USR_EMP_ID=EMPLOYEE.EMP_ID');
 
 		if($_POST['group'] != "")
 			$this->db->where('USR_User_group', $_POST['group']);
 
 		if($_POST['status'] != "")
 			$this->db->where('USR_Status', $_POST['status']);
+
 
 		$r = $this->db->get('USER')->result_array();
 

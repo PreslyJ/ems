@@ -33,5 +33,13 @@ class Reports_model extends CI_Model
 
 	}
 
+	function fetch_agenda(){
+
+		$CI =& get_instance();
+		$CI->load->model('transaction/agenda_model'); //loading model
+
+		return $CI->agenda_model->fetch_agenda();
+
+	}
 
 }

@@ -287,7 +287,7 @@ class Event_model extends CI_Model
 			if($_POST['update_id'] != null) //if update id is set
 			{
 				$data = array();
-
+				log_message('error',$_POST['act_budget_input']);
 				$data['ENT_Code']            = $_POST['evt_code_input'];
 				$data['ENT_CUS_ID']          = $_POST['cus_select'];
 				$data['ENT_EVT_ID']          = $_POST['evt_select'];
