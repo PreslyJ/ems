@@ -115,6 +115,13 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group"> 
+                                        <label class="col-md-4 control-label" for  = "websiteUrl">Website url</label>                                      
+                                        <div class="col-md-8">
+                                                <input type = "text" placeholder = "Website url" class = "form-control text-right" id = "websiteurl_input" name = "websiteurl_input" >
+                                        </div>
+                                    </div>
+
                                     <div class = "form-group">
                                         <label class = "control-label col-md-4" for  = "status_switch">Status</label>
                                         <div class = "col-md-2">

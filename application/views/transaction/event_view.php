@@ -479,6 +479,12 @@ function addActivity()
         $('#ent_activity_table_body').append('<tr id = "tr_'+activity_count+'"><td>'+(activity_count + 1)+'</td><td>'+$('#tbl_activity_input').val()+'</td><td>'+$('#tbl_desc_input').val()+'</td><td>'+$('#tbl_deadline_input').val()+'</td><td>'+$('#tbl_sup_select option:selected').text()+'</td><td>'+$('#tbl_cat_select option:selected').text()+'</td><td class = "text-right">'+($('#tbl_budget_input').val() != "" ? 'Rs. '+$('#tbl_budget_input').val()+'.00' : '')+'</td><td class = "text-center danger-bg">0%</td><td class = "text-center act_tr"><strong><a class = "text-danger" style = "cursor:pointer" onclick = "removeActivity(this, \''+activity_count+'\');"">Remove</a></strong></td></tr>');
 
         activity_list[activity_count] = {'activity' : $('#tbl_activity_input').val(), 'desc' : $('#tbl_desc_input').val(), 'deadline' : $('#tbl_deadline_input').val(), 'sup_id' : $('#tbl_sup_select').val(), 'role_ids' : $('#tbl_cat_select').selectpicker('val'), 'role' : $('#tbl_cat_select option:selected').text(), 'budget' : $('#tbl_budget_input').val(), 'new' : 1, 'com_perc' : 0};
+        
+        var totBudgt =$('#act_budget_input').val();
+        
+        totBudgt = +totBudgt + +$('#tbl_budget_input').val();
+
+        $('#act_budget_input').val(totBudgt+ ".00");
 
         activity_count++;
 
@@ -722,7 +728,7 @@ function validateEvent() //validating the date selected for the event. checking 
         if($('#evt_date_input').val() != initial_date) //validate date only if the date was changed. Not necessary if else since during adding it was validated
         {
             //using $.getJSON to retrieve information. passing selected date and update ID.
-            $.getJSON("<?php echo base_url('transaction/event/validate_event') ?>", {'date' : $('#evt_date_input').val()},
+            $.getJSON("<?php echo base_url('transaction/event/validate_event') ?>", {'date' : $('#evt_date_input').val(), 'start' : $('#start_time_input').val(), 'end' : $('#end_time_input').val()},
             function (data)
             {
                 refreshNotifications(); //showing any notifications set at the model

@@ -37,6 +37,8 @@ class Reports extends CI_Controller
 		$_POST['venue'] = NULL;
 		$_POST['type'] = NULL ;
 		$_POST['employee'] = NULL;
+		
+		$evn=$this->reports_model->fetch_event_by_id();
 
 		// Load autoloader (using Composer)
 		require APPPATH. '../vendor/autoload.php';
@@ -45,7 +47,7 @@ class Reports extends CI_Controller
 		$content = '';  
 		$content .= '  
 		<h3 align="center">EVENT ACTIVITY CHECKLIST</h3><br /> 
-		<p>Test</p>
+		<p>EVENT -'.$evn['ENT_Code'].'</p> 
 		<br /> <br /> 
 		<table border="1" cellspacing="0" cellpadding="5">  
 				<tr>  
@@ -84,6 +86,10 @@ class Reports extends CI_Controller
 	function eventAgenda($event_id=0){
 		
 		$_GET['id']=$event_id;
+		$_POST['id']=$event_id;
+
+		$evn=$this->reports_model->fetch_event_by_id();
+
 
 		// Load autoloader (using Composer)
 		require APPPATH. '../vendor/autoload.php';
@@ -92,6 +98,8 @@ class Reports extends CI_Controller
 		$content = '';  
 		$content .= '  
 		<h3 align="center">EVENT AGENDA</h3><br /><br />  
+		<p>EVENT -'.$evn['ENT_Code'].'</p> 
+		<br /> <br /> 
 		<table border="1" cellspacing="0" cellpadding="5">  
 				<tr>  
 				<th class = "text-center">#</th>

@@ -78,7 +78,7 @@
                                         <th class = "text-center">Address</th>
                                         <th class = "text-center">Email</th>
                                         <th class = "text-center">Skype</th>
-                                        <th class = "text-center">User</th>
+                                        <th class = "text-center">Whatsapp</th>
                                         <th class = "text-center">Status</th>
                                         <th class = "text-center">Action</th>
                                     </tr>
@@ -127,7 +127,7 @@ $(document).ready(function()
             "data": aoData,
             "success": fnCallback
         })},
-        'fnServerParams' : function(aoData)
+        'fnServerParams' : function(aoData)                             
         {
             aoData.push({'name' : 'from', 'value' : $('#from_date_input').val()});
             aoData.push({'name' : 'to', 'value' : $('#to_date_input').val()});
@@ -141,7 +141,7 @@ $(document).ready(function()
             { "mData": "address"},
             { "mData": "email", "mRender" : function(data){ return '<a href="mailto:'+data+'" target="_top">'+data+'</a>'; }},
             { "mData": "skype", "mRender" : function(data){ return '<span>Call : <a href="skype:'+data+'?call">'+data+'</a></span><span>  Chat : <a href="skype:'+data+'?chat">'+data+'</a></span>'; }},
-            { "mData": "user"},
+            { "mData": "mobile", "mRender" : function(data){ return '<a   target="_blank"  href="https://api.whatsapp.com/send?phone=94'+data.replace(/^0+/, '')+'">Send Message</a>'; }},
             { "mData": "status", "sClass": "text-center"},
             { "mData": "action", "sClass": "text-center"}
         ],

@@ -75,7 +75,7 @@
                                         <th class = "text-center">Minimum Rate</th>
                                         <th class = "text-center">Email</th>
                                         <th class = "text-center">Skype</th>
-                                        <th class = "text-center">User</th>
+                                        <th class = "text-center">Website</th> 
                                         <th class = "text-center">Status</th>
                                         <th class = "text-center">Action</th>
                                     </tr>
@@ -134,7 +134,7 @@ $(document).ready(function()
             { "mData": "min_rate", "sClass" : "text-right", "mRender" : function(data){ return "Rs."+data; }},
             { "mData": "email", "mRender" : function(data){ return '<a href="mailto:'+data+'" target="_top">'+data+'</a>'; }},
             { "mData": "skype", "mRender" : function(data){ return '<span>Call : <a href="skype:'+data+'?call">'+data+'</a></span><span>  Chat : <a href="skype:'+data+'?chat">'+data+'</a></span>'; }},
-            { "mData": "user"},
+             { "mData": "weburl", "mRender" : function(data){ return '<a href="https://'+data+'" target="_blank" >website</a>'; }},
             { "mData": "status", "sClass": "text-center"},
             { "mData": "action", "sClass": "text-center"}
         ],

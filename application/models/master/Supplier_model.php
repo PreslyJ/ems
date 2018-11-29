@@ -131,6 +131,8 @@ class Supplier_model extends CI_Model
 			$data['SUP_Status']          = (isset($_POST['status_switch']) ? 1 : 0);
 			$data['SUP_User']            = $this->session->userdata('username');
 			$data['SUP_Timestamp']       = date('Y-m-d H:i:s');
+			$data['SUP_WebUrl']			 = $_POST['websiteurl_input'];
+
 
 			$this->db->insert('SUPPLIER', $data);
 			$sup_id = $this->db->insert_id();
@@ -184,6 +186,7 @@ class Supplier_model extends CI_Model
 				$data['SUP_Status']          = (isset($_POST['status_switch']) ? 1 : 0);
 				$data['SUP_UpdateUser']      = $this->session->userdata('username');
 				$data['SUP_UpdateTimestamp'] = date('Y-m-d H:i:s');
+				$data['SUP_WebUrl']			 = $_POST['websiteurl_input'];
 
 				$this->db->where('SUP_ID', $_POST['update_id']);
 				$this->db->update('SUPPLIER', $data);
@@ -287,7 +290,7 @@ class Supplier_model extends CI_Model
 		$types = array();
 
 		//fetching supplier types of all suppliers
-		$this->db->select('SUP_ID as "sup_id", SUPPLIER_SUPPLIER_TYPES.SPT_ID as "type_id", SPT_Supplier_Type as "sup_type"');
+		$this->db->select('SUP_ID as "sup_id", SUPPLIER_SUPPLIER_TYPES.SPT_ID as "type_id", SPT_Supplier_Type as "sup_type" ');
 		$this->db->join('SUPPLIER_TYPE', 'SUPPLIER_TYPE.SPT_ID=SUPPLIER_SUPPLIER_TYPES.SPT_ID');
 		$types = $this->db->get('SUPPLIER_SUPPLIER_TYPES')->result_array();
 
@@ -305,7 +308,7 @@ class Supplier_model extends CI_Model
 		}
 
 		//fetching all suppliers
-		$this->db->select('SUP_ID as "id", SUP_Name as "name", SUP_Minimum_rate as "min_rate", SUP_Email as "email", SUP_Skype as "skype", SUP_User as "user", SUP_Status as "status"');
+		$this->db->select('SUP_ID as "id", SUP_Name as "name", SUP_Minimum_rate as "min_rate", SUP_Email as "email", SUP_Skype as "skype", SUP_User as "user", SUP_Status as "status",SUP_WebUrl as "weburl"');
 
 		//applyinh filters if selected by user
 		if($_POST['min_from'] != "")
