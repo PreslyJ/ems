@@ -133,7 +133,7 @@
     <div class="modal-footer">
     <span class = "pull-right">                             
         <button class="btn btn-primary" type="submit" id="save_btn" onclick = "saveCustomer();">Save</button>
-        <button class="btn btn-default" type="reset" onclick="resetForm();">Reset</button>
+        <!-- <button class="btn btn-default" type="reset" onclick="resetForm();">Reset</button> -->
     </span>
     </div>
 </div>

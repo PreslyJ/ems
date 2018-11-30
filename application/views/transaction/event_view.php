@@ -201,6 +201,7 @@
                                     <th class = "text-center">Supplier</th>
                                     <th class = "text-center">Supplier Role</th>
                                     <th class = "text-center">Budget (Rs.)</th>
+                                    <th class = "text-center">Packages</th>
                                     <th class = "text-center">Progress</th>
                                     <th class = "text-center">Action</th>
                                 </thead>
@@ -223,6 +224,7 @@
                                                 <input type = "text" id = "tbl_budget_input" name = "tbl_budget_input" placeholder = "Budget" class = "form-control text-right">
                                             </div>
                                         </th>
+                                        <th><a id="packageslink" href="" target="_blank"  ></a></th>
                                         <th><button type="button" class="btn btn-disabled-danger" disabled>0%</button></th>
                                         <th><button type = "button" onclick = "addActivity();" id = "avt_add_btn" name = "avt_add_btn" class = "btn btn-block btn-primary">Add <i class = "fa fa-level-down"></i></button></th>
                                     </tr>
@@ -437,6 +439,9 @@ function loadSupplierTypes()
     $('#tbl_cat_select option').remove();
     $('#tbl_cat_select').selectpicker('refresh');
 
+    $("a#packageslink").attr('href','');
+    $("#packageslink").text('');
+
     if($('#tbl_sup_select').selectpicker('val') != "")
     {
         $.getJSON("<?php echo base_url('transaction/event/fetch_sup_types') ?>",{'id' : $('#tbl_sup_select').selectpicker('val')},
@@ -452,6 +457,10 @@ function loadSupplierTypes()
                 });
 
                 $('#tbl_cat_select').selectpicker('refresh');
+                if(data[0]['packages']){
+                    $("a#packageslink").attr('href',  'http://localhost/packagesupload/'+data[0]['packages']);
+                    $("#packageslink").text('Packages');
+                }   
             }
         });
     }
@@ -476,7 +485,7 @@ function addActivity()
         //     sup_id_array.push($(o).val());           
         // });
 
-        $('#ent_activity_table_body').append('<tr id = "tr_'+activity_count+'"><td>'+(activity_count + 1)+'</td><td>'+$('#tbl_activity_input').val()+'</td><td>'+$('#tbl_desc_input').val()+'</td><td>'+$('#tbl_deadline_input').val()+'</td><td>'+$('#tbl_sup_select option:selected').text()+'</td><td>'+$('#tbl_cat_select option:selected').text()+'</td><td class = "text-right">'+($('#tbl_budget_input').val() != "" ? 'Rs. '+$('#tbl_budget_input').val()+'.00' : '')+'</td><td class = "text-center danger-bg">0%</td><td class = "text-center act_tr"><strong><a class = "text-danger" style = "cursor:pointer" onclick = "removeActivity(this, \''+activity_count+'\');"">Remove</a></strong></td></tr>');
+        $('#ent_activity_table_body').append('<tr id = "tr_'+activity_count+'"><td>'+(activity_count + 1)+'</td><td>'+$('#tbl_activity_input').val()+'</td><td>'+$('#tbl_desc_input').val()+'</td><td>'+$('#tbl_deadline_input').val()+'</td><td>'+$('#tbl_sup_select option:selected').text()+'</td><td>'+$('#tbl_cat_select option:selected').text()+'</td><td class = "text-right">'+($('#tbl_budget_input').val() != "" ? 'Rs. '+$('#tbl_budget_input').val()+'.00' : '')+'</td><td></td><td class = "text-center danger-bg">0%</td><td class = "text-center act_tr"><strong><a class = "text-danger" style = "cursor:pointer" onclick = "removeActivity(this, \''+activity_count+'\');"">Remove</a></strong></td></tr>');
 
         activity_list[activity_count] = {'activity' : $('#tbl_activity_input').val(), 'desc' : $('#tbl_desc_input').val(), 'deadline' : $('#tbl_deadline_input').val(), 'sup_id' : $('#tbl_sup_select').val(), 'role_ids' : $('#tbl_cat_select').selectpicker('val'), 'role' : $('#tbl_cat_select option:selected').text(), 'budget' : $('#tbl_budget_input').val(), 'new' : 1, 'com_perc' : 0};
         
@@ -505,6 +514,8 @@ function clearActivityFields()
     $('#tbl_cat_select').selectpicker('val', "");
     $('#tbl_cat_select,#tbl_sup_select').selectpicker('refresh');
     $('#tbl_activity_input,#tbl_desc_input,#tbl_deadline_input,#tbl_budget_input').val('');
+    $("a#packageslink").attr('href','');
+    $("#packageslink").text('');
 }
 
 function checkRemove(index)
@@ -653,7 +664,7 @@ function fetchEvent(ent_id, ent_mode)
                 {
                     $.each(data['activities'], function(i,o)
                     {
-                        $('#ent_activity_table_body').append('<tr id = "tr_'+activity_count+'"><td>'+(activity_count + 1)+'</td><td>'+o['activity']+'</td><td>'+o['desc']+'</td><td>'+o['deadline']+'</td><td>'+o['sup_name']+'</td><td>'+o['roles']+'</td><td class = "text-right">'+(o['act_budget'] != "" ? 'Rs. '+o['act_budget'] : '')+'</td><td class = "text-center '+(o['com_perc'] <= 25 ? 'danger-bg' : (o['com_perc'] <= 50 ? 'warning-bg' : (o['com_perc'] <= 75 ? 'info-bg' : (o['com_perc'] < 100 ? 'primary-bg' : (o['com_perc'] == 100 ? 'success-bg' : '')))))+'">'+o['com_perc']+'%</td><td class = "text-center act_tr"><strong><a class = "text-danger" style = "cursor:pointer" onclick = "checkRemove(\''+activity_count+'\');"">Remove</a></strong></td></tr>');
+                        $('#ent_activity_table_body').append('<tr id = "tr_'+activity_count+'"><td>'+(activity_count + 1)+'</td><td>'+o['activity']+'</td><td>'+o['desc']+'</td><td>'+o['deadline']+'</td><td>'+o['sup_name']+'</td><td>'+o['roles']+'</td><td class = "text-right">'+(o['act_budget'] != "" ? 'Rs. '+o['act_budget'] : '')+'</td><td></td><td class = "text-center '+(o['com_perc'] <= 25 ? 'danger-bg' : (o['com_perc'] <= 50 ? 'warning-bg' : (o['com_perc'] <= 75 ? 'info-bg' : (o['com_perc'] < 100 ? 'primary-bg' : (o['com_perc'] == 100 ? 'success-bg' : '')))))+'">'+o['com_perc']+'%</td><td class = "text-center act_tr"><strong><a class = "text-danger" style = "cursor:pointer" onclick = "checkRemove(\''+activity_count+'\');"">Remove</a></strong></td></tr>');
 
                         activity_list[activity_count] = {'activity' : o['activity'], 'desc' : o['desc'], 'deadline' : o['deadline'], 'sup_id' : o['sup_id'], 'role_ids' : o['role_ids'], 'role' : o['roles'], 'budget' : o['act_budget'], 'new' : 0, 'act_id' : o['act_id']};
 

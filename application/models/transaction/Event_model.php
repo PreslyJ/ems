@@ -172,10 +172,11 @@ class Event_model extends CI_Model
 
 		if($_GET['id'] != "")
 		{
-			$this->db->select('SUP_ID as "sup_id", SUPPLIER_SUPPLIER_TYPES.SPT_ID as "id", SPT_Supplier_Type as "name"');
-			$this->db->join('SUPPLIER_TYPE', 'SUPPLIER_TYPE.SPT_ID=SUPPLIER_SUPPLIER_TYPES.SPT_ID');
-			$this->db->where('SUP_ID', $_GET['id']);
-			$r = $this->db->get('SUPPLIER_SUPPLIER_TYPES')->result_array();
+			$this->db->select('SUPPLIER.SUP_ID as "sup_id", spts.SPT_ID as "id", SUPPLIER_TYPE.SPT_Supplier_Type as "name",SUPPLIER.SUP_packagesfile as "packages"');
+			$this->db->join('SUPPLIER_TYPE', 'SUPPLIER_TYPE.SPT_ID=spts.SPT_ID');
+			$this->db->join('SUPPLIER', 'spts.SUP_ID=SUPPLIER.SUP_ID');
+			$this->db->where('spts.SUP_ID', $_GET['id']);
+			$r = $this->db->get('SUPPLIER_SUPPLIER_TYPES spts')->result_array();
 		}
 
 		return $r;
@@ -243,7 +244,7 @@ class Event_model extends CI_Model
 			$data['ENT_VEN_ID']         = $_POST['ven_select'];
 			$data['ENT_HALL_ID']        = $_POST['hall_select'];
 			$data['ENT_Initial_budget'] = $_POST['evt_budget_input'];
-			$data['ENT_Budget']         = (isset($_POST['act_budget_input'])?0:$_POST['act_budget_input']);
+			$data['ENT_Budget']         = (isset($_POST['act_budget_input'])?$_POST['act_budget_input']:0);
 			$data['ENT_Total_charge']   = $_POST['total_fee_input'];
 			$data['ENT_Requirement']    = $_POST['cus_req_input'];
 			$data['ENT_Remarks']        = $_POST['ent_remarks_input'];
@@ -297,7 +298,7 @@ class Event_model extends CI_Model
 				$data['ENT_VEN_ID']          = $_POST['ven_select'];
 				$data['ENT_HALL_ID']         = $_POST['hall_select'];
 				$data['ENT_Initial_budget']  = $_POST['evt_budget_input'];
-				$data['ENT_Budget']          = (isset($_POST['act_budget_input'])?0:$_POST['act_budget_input']);
+				$data['ENT_Budget']          = (isset($_POST['act_budget_input'])?$_POST['act_budget_input']:0);
 				$data['ENT_Total_charge']    = $_POST['total_fee_input'];
 				$data['ENT_Requirement']     = $_POST['cus_req_input'];
 				$data['ENT_Remarks']         = $_POST['ent_remarks_input'];

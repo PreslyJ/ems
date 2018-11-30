@@ -81,7 +81,7 @@ class Supplier_model extends CI_Model
 
 		$data['SPT_Supplier_Type'] = $_POST['sup_type_input'];
 		$data['SPT_User']          = $this->session->userdata('username');
-		$data['SPT_Timestamp']     = date('Y-m-d H:i:S');
+		$data['SPT_Timestamp']     = date('Y-m-d H:i:s');
 
 		$this->db->insert('SUPPLIER_TYPE', $data);
 
@@ -132,7 +132,7 @@ class Supplier_model extends CI_Model
 			$data['SUP_User']            = $this->session->userdata('username');
 			$data['SUP_Timestamp']       = date('Y-m-d H:i:s');
 			$data['SUP_WebUrl']			 = $_POST['websiteurl_input'];
-
+			$data['SUP_packagesfile']	 = $_POST['packagesfile'];
 
 			$this->db->insert('SUPPLIER', $data);
 			$sup_id = $this->db->insert_id();
@@ -187,7 +187,11 @@ class Supplier_model extends CI_Model
 				$data['SUP_UpdateUser']      = $this->session->userdata('username');
 				$data['SUP_UpdateTimestamp'] = date('Y-m-d H:i:s');
 				$data['SUP_WebUrl']			 = $_POST['websiteurl_input'];
+				
+				if(isset($_POST['packagesfile']))
+					$data['SUP_packagesfile']	 = $_POST['packagesfile'];
 
+				
 				$this->db->where('SUP_ID', $_POST['update_id']);
 				$this->db->update('SUPPLIER', $data);
 				$sup_id = $_POST['update_id'];
@@ -308,7 +312,7 @@ class Supplier_model extends CI_Model
 		}
 
 		//fetching all suppliers
-		$this->db->select('SUP_ID as "id", SUP_Name as "name", SUP_Minimum_rate as "min_rate", SUP_Email as "email", SUP_Skype as "skype", SUP_User as "user", SUP_Status as "status",SUP_WebUrl as "weburl"');
+		$this->db->select('SUP_ID as "id", SUP_Name as "name", SUP_Minimum_rate as "min_rate", SUP_Email as "email", SUP_Skype as "skype", SUP_User as "user", SUP_Status as "status",SUP_WebUrl as "weburl", SUP_packagesfile as "package"');
 
 		//applyinh filters if selected by user
 		if($_POST['min_from'] != "")
@@ -333,6 +337,8 @@ class Supplier_model extends CI_Model
 			if(array_key_exists($ref['id'], $sup_types_array)) //getting supplier types of supplier
 				$ref['sup_type_string'] = $sup_types_array[$ref['id']];
 
+
+//			$ref['packages'] = ($ref['package'] !=NULL ?  "<a target='_blank' href='http://localhost/packagesupload".$ref['package']."' </a>":"");
 			$ref['action'] = "<a class = 'text-info' style = 'cursor:pointer' onclick ='editSupplier(".$ref['id'].")'><strong>Edit</strong></a> | ".($ref['status'] == 0 ? "<a onclick = 'quickToggleSupStatus(".$ref['id'].");' class = 'text-success' style = 'cursor:pointer'><strong>Activate</strong></a>" : "<a onclick = 'quickToggleSupStatus(".$ref['id'].");' class = 'text-danger' style = 'cursor:pointer'><strong>Deactivate</strong></a>"); //defining available actions as 
 			$ref['status'] = ($ref['status'] == 0 ? 'Inactive' : 'Active');
 		}
@@ -400,7 +406,7 @@ class Supplier_model extends CI_Model
 	{
 		$r = array();
 
-		$this->db->select('SUP_ID as "id", SUP_Code as "code", SUP_Name as "name", SUP_Email as "email", SUP_Skype as "skype", SUP_Contact_person as "contat_person", SUP_Con_designation as "con_desig", SUP_Minimum_rate as "min_rate", SUP_Status as "status"');
+		$this->db->select('SUP_ID as "id", SUP_Code as "code", SUP_Name as "name", SUP_Email as "email", SUP_Skype as "skype", SUP_Contact_person as "contat_person", SUP_Con_designation as "con_desig", SUP_Minimum_rate as "min_rate", SUP_Status as "status", SUP_WebUrl as "weburl"');
 		$this->db->where('SUP_ID', $_GET['id']);
 		$r['supplier'] = $this->db->get('SUPPLIER')->row_array();
 

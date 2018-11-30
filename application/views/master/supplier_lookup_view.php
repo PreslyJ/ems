@@ -75,7 +75,8 @@
                                         <th class = "text-center">Minimum Rate</th>
                                         <th class = "text-center">Email</th>
                                         <th class = "text-center">Skype</th>
-                                        <th class = "text-center">Website</th> 
+                                        <th class = "text-center">Website</th>
+                                        <th class = "text-center">Packages</th>  
                                         <th class = "text-center">Status</th>
                                         <th class = "text-center">Action</th>
                                     </tr>
@@ -134,7 +135,8 @@ $(document).ready(function()
             { "mData": "min_rate", "sClass" : "text-right", "mRender" : function(data){ return "Rs."+data; }},
             { "mData": "email", "mRender" : function(data){ return '<a href="mailto:'+data+'" target="_top">'+data+'</a>'; }},
             { "mData": "skype", "mRender" : function(data){ return '<span>Call : <a href="skype:'+data+'?call">'+data+'</a></span><span>  Chat : <a href="skype:'+data+'?chat">'+data+'</a></span>'; }},
-             { "mData": "weburl", "mRender" : function(data){ return '<a href="https://'+data+'" target="_blank" >website</a>'; }},
+             { "mData": "weburl", "mRender" : function(data){ return '<a href="'+data+'" target="_blank" >website</a>'; }},
+             { "mData": "package",  "mRender" : function(data){ return (data?'<a href="http://localhost/packagesupload/'+data+'" target="_blank" >packages</a>':''); }},
             { "mData": "status", "sClass": "text-center"},
             { "mData": "action", "sClass": "text-center"}
         ],
@@ -142,9 +144,9 @@ $(document).ready(function()
         { 
             //color assigning of status field based on current status
             if(data.status == "Active")
-                jQuery('td:eq(7)', row).css('background-color', '#C7FFBC');
+                jQuery('td:eq(8)', row).css('background-color', '#C7FFBC');
             if(data.status == "Inactive")
-                jQuery('td:eq(7)', row).css('background-color', '#9EDCF6');
+                jQuery('td:eq(8)', row).css('background-color', '#9EDCF6');
         }
     });
 

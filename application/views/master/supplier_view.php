@@ -55,10 +55,9 @@
                                             <input type = "text" placeholder = "Supplier Name" class = "form-control" id = "sup_name_input" name = "sup_name_input" data-validation="required">
                                         </div>
                                     </div>
-
                                     <div class = "form-group">
                                         <label class="col-md-4 control-label" for  = "sup_type_select">Supplier Type</label>
-                                        <div class = "col-md-8">
+                                        <div class = "col-md-8" id="supTypedrop">
                                             <?php echo form_dropdown('sup_type_select[]', array(), '', 'id = "sup_type_select" class = "form-control selectpicker" data-live-search = "true" data-container = "body" data-size = "5" multiple'); ?>
                                         </div>
                                     </div>
@@ -122,6 +121,14 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group"> 
+                                        <label class="col-md-4 control-label" for  = "websiteUrl">Packages</label>                                      
+                                        <div class="col-md-8">
+                                        <input name="file" type="file"  id="packages" >
+                                        </div>
+                                    </div>
+
+
                                     <div class = "form-group">
                                         <label class = "control-label col-md-4" for  = "status_switch">Status</label>
                                         <div class = "col-md-2">
@@ -164,7 +171,8 @@
                             </div>
                         </div>
                     </form>
-
+                    <div class="invisible"><button id="tst"></button></div>
+                                   
                     <div class = "hr-line-dashed"></div>
 
                     <span class = "pull-right">                             
@@ -347,7 +355,9 @@ $('#sup_type_select').on('change', function()
     {
         $("#sup_type_select option[value='modal']").prop("selected", false);
         $('#sup_type_select').selectpicker('refresh');
+        $('#tst').click();
         $('#add_sup_type_modal').modal('show');
+
     }
 });
 
@@ -440,7 +450,8 @@ function fetchSupplier(supplier_id)
                 $('#sup_skype_input').val(data['supplier']['skype']);
                 $('#sup_type_select').selectpicker('val', data['supplier']['sup_type']);
                 $('#sup_min_rate_input').val(data['supplier']['min_rate']);
-
+                $('#websiteurl_input').val(data['supplier']['weburl']);
+                
                 var status_switch = document.querySelector('#status_switch');
 
                 if(data['supplier']['status'] == "1")
@@ -504,34 +515,64 @@ function saveSupType()
 function resetModal()
 {
     $('#sup_type_form')[0].reset();
+    
 }
 
 function saveSupplier()
 {
+
+    var file = $('#packages')[0].files[0]
+    var fd = new FormData();
+    fd.append('packages', file);
+    $.ajax({
+        url: '<?php echo site_url("master/supplier/upload_package")?>',
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data: fd,
+        success: function (data, status, jqxhr) {
+            savesupwithpkg(data);
+        },
+        error: function (jqxhr, status, msg) {
+            savesupwithpkg();
+        }
+    });
+
+
+
+}
+
+function savesupwithpkg(file_name){
     var data = $('#supplier_form').serializeArray();
 
     data.push({'name' : 'branch_entries', 'value' : JSON.stringify(branch_entries)});
     data.push({'name' : 'remove_branch_entries', 'value' : JSON.stringify(remove_branch_entries)});
     data.push({'name' : 'update_id', 'value' : update_id});
 
+    if(file_name)
+        data.push({'name' : 'packagesfile', 'value' : file_name});
+    else
+        data.push({'name' : 'packagesfile', 'value' : ""});
+
     $.ajax(
     {
-       url: '<?php echo site_url("master/supplier/save_supplier")?>',
-       type: 'post',
-       dataType: 'json',
-       data: data,
-       async: false,
-       error: function(){alert("An Error Occurred. Please Try Again.")},
-       success: function(data)
-       {
-            refreshNotifications();
-            if(data)
-            {
-                resetForm();
-            }
-       } 
+        url: '<?php echo site_url("master/supplier/save_supplier")?>',
+        type: 'post',
+        dataType: 'json',
+        data: data,
+        async: false,
+        error: function(){alert("An Error Occurred. Please Try Again.")},
+        success: function(data)
+        {
+                refreshNotifications();
+                if(data)
+                {
+                    resetForm();
+                }
+        } 
     });
 }
+
 
 function reloadSequence()
 {

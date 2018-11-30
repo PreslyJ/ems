@@ -32,6 +32,28 @@ class Supplier extends CI_Controller
 		echo json_encode($this->supplier_model->save_sup_type());
 	}
 
+	function upload_package(){
+
+		$pkg_path = '/var/www/html/packagesupload/' ;
+
+		$config['upload_path']= $pkg_path;
+        $config['allowed_types']='gif|jpg|png|pdf|jpeg';
+		$config['file_name']=rand();
+
+		$this->load->library('upload');
+
+		$this->upload->initialize($config);
+
+
+		if($this->upload->do_upload("packages")){
+			$data = array('upload_data' => $this->upload->data());
+
+			echo $data['upload_data']['file_name'];
+			
+        }
+
+	}
+
 	function save_supplier()
 	{
 		echo json_encode($this->supplier_model->save_supplier());

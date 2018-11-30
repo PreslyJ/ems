@@ -47,7 +47,7 @@ class Reports extends CI_Controller
 		$content = '';  
 		$content .= '  
 		<h3 align="center">EVENT ACTIVITY CHECKLIST</h3><br /> 
-		<p>EVENT -'.$evn['ENT_Code'].'</p> 
+		<p>EVENT -'.$evn['code'].'</p> 
 		<br /> <br /> 
 		<table border="1" cellspacing="0" cellpadding="5">  
 				<tr>  
@@ -98,7 +98,7 @@ class Reports extends CI_Controller
 		$content = '';  
 		$content .= '  
 		<h3 align="center">EVENT AGENDA</h3><br /><br />  
-		<p>EVENT -'.$evn['ENT_Code'].'</p> 
+		<p>EVENT - '.$evn['code'].'</p> 
 		<br /> <br /> 
 		<table border="1" cellspacing="0" cellpadding="5">  
 				<tr>  
